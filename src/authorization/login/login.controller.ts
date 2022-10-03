@@ -9,7 +9,6 @@ import {
 import { ApiBasicAuth, ApiDefaultResponse, ApiTags } from '@nestjs/swagger';
 import { Request as ExpressRequest } from 'express';
 import { BasicAuthGuard } from 'src/authorization/guards/basic-auth.guard';
-import { LoginViaRefreshTokenResult as LoginWithRefreshTokenResult } from '../dto/login-via-refresh-token-result';
 import { AuthorizationService } from '../services/authorization.service';
 
 @ApiTags('Authorization')

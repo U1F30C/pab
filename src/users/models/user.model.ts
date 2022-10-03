@@ -1,22 +1,14 @@
 import { genSalt, hash } from 'bcrypt';
-import {
-  IsBoolean,
-  IsEmail,
-  IsEnum,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import {
   BeforeSave,
   Column,
   DataType,
-  HasOne,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { Roles } from '../../constants/roles';
 import { appConfig } from '../../utils/startup-config-service';
-import { VerificationToken } from './verification-token.model';
 
 export class UserRequestBody {
   @IsString({
@@ -25,6 +17,13 @@ export class UserRequestBody {
   @IsOptional({
     groups: ['update'],
   })
+  id: string;
+  @IsString({
+    always: true,
+  })
+  @IsOptional({
+    groups: ['update'],
+  })
   name: string;
   @IsString({
     always: true,
@@ -32,15 +31,19 @@ export class UserRequestBody {
   @IsOptional({
     groups: ['update'],
   })
-  lastName: string;
+  jobRole: string;
   @IsString({
     always: true,
   })
   @IsOptional({
     groups: ['update'],
   })
-  @IsEmail(undefined, {
+  address: string;
+  @IsString({
     always: true,
+  })
+  @IsOptional({
+    groups: ['update'],
   })
   email: string;
   @IsString({
@@ -49,56 +52,60 @@ export class UserRequestBody {
   @IsOptional({
     groups: ['update'],
   })
-  @IsEnum(Roles, {
+  phoneNumber: string;
+  @IsString({
     always: true,
   })
-  role: Roles;
   @IsOptional({
     groups: ['update'],
   })
-  @IsBoolean({
+  userName: string;
+  @IsString({
     always: true,
   })
-  active: boolean;
+  @IsOptional({
+    groups: ['update'],
+  })
+  password: string;
 }
 export interface IUser {
-  id: number;
+  id: string;
   name: string;
-  lastName: string;
-  password: string;
+  jobRole: string;
+  address: string;
   email: string;
-  role: Roles;
-  active: boolean;
+  phoneNumber: string;
+  userName: string;
+  password: string;
 }
 
 @Table({
   modelName: 'user',
+  tableName: 'Empleados',
+  timestamps: false,
 })
 export class User extends Model<IUser, Omit<IUser, 'id'>> implements IUser {
-  @Column({ primaryKey: true, autoIncrement: true })
-  id: number;
-  @Column
-  name: string;
-  @Column
-  lastName: string;
-  @Column({ type: DataType.STRING(510) })
-  fullName: string;
-  @Column
-  password: string;
-  @Column
-  email: string;
   @Column({
-    type: DataType.ENUM(Roles.Admin, Roles.Inspector),
+    primaryKey: true,
+    autoIncrement: true,
+    field: 'id_empleado',
+    type: DataType.BIGINT,
   })
-  role: Roles;
-  @Column({ type: DataType.BOOLEAN })
-  active: boolean;
-  @BeforeSave
-  static fullName(instance: User) {
-    const name = instance.name || '';
-    const lastName = instance.lastName || '';
-    instance.fullName = `${name} ${lastName}`;
-  }
+  id: string;
+  @Column({ field: 'nombre' })
+  name: string;
+  @Column({ field: 'puesto' })
+  jobRole: string;
+  @Column({ field: 'direccion' })
+  address: string;
+  @Column({ field: 'correo' })
+  email: string;
+  @Column({ field: 'telefono' })
+  phoneNumber: string;
+  @Column({ field: 'usuario' })
+  userName: string;
+  @Column({ field: 'contrasena' })
+  password: string;
   @BeforeSave
   static async hashPassword(instance: User) {
     if (instance.changed('password')) {
@@ -108,7 +115,4 @@ export class User extends Model<IUser, Omit<IUser, 'id'>> implements IUser {
       instance.password = await hash(instance.password, saltRounds);
     }
   }
-
-  @HasOne(() => VerificationToken, 'userId')
-  verificationTokens: VerificationToken[];
 }

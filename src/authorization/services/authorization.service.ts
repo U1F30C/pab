@@ -11,16 +11,11 @@ import { formatErrorReason } from 'src/shared/pipes/exception-factory';
 import { User } from 'src/users/models/user.model';
 import { UsersService } from 'src/users/users.service';
 import { appConfig } from 'src/utils/startup-config-service';
-import { LoginViaRefreshTokenResult } from '../dto/login-via-refresh-token-result';
-import { RefreshTokenPayload } from '../dto/refresh-token-payload';
-import { RefreshTokenWithSalt } from '../dto/refresh-token-result';
 import { RequestUser } from '../request-user';
 
 @Injectable()
 export class AuthorizationService {
-  constructor(
-    private userService: UsersService,
-  ) {}
+  constructor(private userService: UsersService) {}
   private async authorizeViaBasic(
     userResolver: () => Promise<User>,
     authenticationResolver: (user: User) => Promise<boolean>,
@@ -34,11 +29,6 @@ export class AuthorizationService {
       else throw exception;
     }
     if (await authenticationResolver(user)) {
-      if (!user.active) {
-        throw new UnauthorizedException(
-          formatErrorReason(ErrorReasons.InactiveUser),
-        );
-      }
       return user;
     } else {
       throw new UnauthorizedException(

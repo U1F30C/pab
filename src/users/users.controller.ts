@@ -21,7 +21,6 @@ import { UsersService } from './users.service';
 
 @ApiTags('User management')
 @ApiBearerAuth()
-@AuthorizeJWTRoleOverride(Roles.Admin)
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}

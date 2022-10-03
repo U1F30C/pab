@@ -7,6 +7,7 @@ import { AuthorizationModule } from './authorization/authorization.module';
 import { UsersModule } from './users/users.module';
 import { appConfig } from './utils/startup-config-service';
 import { stringToBoolean } from './utils/miscellaneous';
+import { PetsModule } from './pets/pets.module';
 
 const options: SequelizeModuleOptions = {
   dialect: <Dialect>appConfig.get('DB_CONNECTION', 'postgresql'),
@@ -27,6 +28,7 @@ const options: SequelizeModuleOptions = {
     }),
     UsersModule,
     AuthorizationModule,
+    PetsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

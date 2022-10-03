@@ -20,6 +20,18 @@ class PetService {
   }
 
   async getAll(query: ApiQuery) {
+    // {
+    //     "name":"Balto",
+    //     "description":"Un perrito jugetón",
+    //     "species":"Firulais",
+    //     "description":"Firulais",
+    //     "image":"http://localhost:3000/images/demo/1.jpg",
+    //     "sex":"Male",
+    //     "state":"Active"
+    //   }
+      
+      // Felix, Tom, Balto, Bolt
+      //http://placekitten.com/200/200?image=10
     try {
       let params = apiQueryToOdataParams(query);
       if (query.queryString) {

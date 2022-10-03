@@ -1,11 +1,11 @@
-import Router from "next/router";
-import { Component } from "react";
-import { Button } from "react-bootstrap";
-import { RolesDisplayNameMap } from "../../constants/roles";
-import { User } from "../../model/user";
-import { userService } from "../../services/user-service";
-import { ApiQuery } from "../../utils/querying/api-query";
-import AppTable, { ColumnConfiguration } from "../shared/table/app-table";
+import Router from 'next/router';
+import { Component } from 'react';
+import { Button } from 'react-bootstrap';
+import { RolesDisplayNameMap } from '../../constants/roles';
+import { User, UserStates } from '../../model/user';
+import { userService } from '../../services/user-service';
+import { ApiQuery } from '../../utils/querying/api-query';
+import AppTable, { ColumnConfiguration } from '../shared/table/app-table';
 
 interface UserListState {
   query: ApiQuery;
@@ -16,25 +16,25 @@ interface UserListState {
 const userTableColumns: ColumnConfiguration<User> = {
   columns: [
     {
-      displayName: "Nombre",
-      property: "name",
+      displayName: 'Nombre',
+      property: 'name',
     },
     {
-      displayName: "Apellido",
-      property: "lastName",
+      displayName: 'Correo',
+      property: 'email',
     },
     {
-      displayName: "Rol",
-      propertyExtractor: (d) => RolesDisplayNameMap[d.role] || "Desconocido",
+      displayName: 'Puesto',
+      property: 'jobRole',
     },
     {
-      displayName: "Acción",
+      displayName: 'Acción',
       propertyExtractor: (item: User) => {
         return (
           <Button
             variant="secondary"
             onClick={() => {
-              Router.push("/app/users/edit/" + item.id);
+              Router.push('/app/users/edit/' + item.id);
             }}
           >
             Editar
@@ -44,7 +44,8 @@ const userTableColumns: ColumnConfiguration<User> = {
     },
   ],
   keySelector: (item: User) => item.id.toString(),
-  classSelector: (item: User) => (item.active ? "" : "inactive-row"),
+  classSelector: (item: User) =>
+    item.state == UserStates.Active ? '' : 'inactive-row',
 };
 export default class UserList extends Component<any, UserListState> {
   constructor(props) {
@@ -78,7 +79,7 @@ export default class UserList extends Component<any, UserListState> {
       },
       () => {
         this.fetchData();
-      }
+      },
     );
   }
 
@@ -92,8 +93,8 @@ export default class UserList extends Component<any, UserListState> {
         onQueryChange={this.handleQueryChange}
       >
         <Button
-          className={"float-right"}
-          onClick={() => Router.push("/app/users/create")}
+          className={'float-right'}
+          onClick={() => Router.push('/app/users/create')}
         >
           Agregar usuario
         </Button>

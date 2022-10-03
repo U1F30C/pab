@@ -12,7 +12,7 @@ export default function LayoutNoAuthenticated({ children, home }: LayoutProps) {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
-        <Navbar.Brand href="#home" className="mx-3">PRACCISS</Navbar.Brand>
+        <Navbar.Brand href="#home" className="mx-3">Pick a buddy</Navbar.Brand>
       </Navbar>
       <div className={styles.container}>
         <main>{children}</main>

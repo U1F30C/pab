@@ -1,22 +1,21 @@
-import axios, { AxiosInstance } from "axios";
-import jwt_decode from "jwt-decode";
-import { IsLoggedInResult, LoggedInReason } from "../model/is-logged-in-result";
-import { LoginModel } from "../model/login-model";
-import { SessionUser } from "../model/session-user";
-import { User } from "../model/user";
-import { createAxiosInstance, httpClient } from "../utils/http";
-import { jwtService } from "./jwt-service";
-import { storageManager } from "./storer";
-import { isBefore } from "date-fns";
-import { now } from "../utils/time-utils";
+import axios, { AxiosInstance } from 'axios';
+import jwt_decode from 'jwt-decode';
+import { IsLoggedInResult, LoggedInReason } from '../model/is-logged-in-result';
+import { LoginModel } from '../model/login-model';
+import { SessionUser } from '../model/session-user';
+import { User } from '../model/user';
+import { createAxiosInstance, httpClient } from '../utils/http';
+import { jwtService } from './jwt-service';
+import { storageManager } from './storer';
+import { isBefore } from 'date-fns';
+import { now } from '../utils/time-utils';
 import {
   LoginWithRefreshTokenResponse,
   RefreshTokenWithSalt,
-} from "../model/login-api-response";
-import { refreshTokenService } from "./refresh-token-service";
+} from '../model/login-api-response';
 
-const saltKey = "SALT";
-const refreshTokenKey = "REFRESH_TOKEN";
+const saltKey = 'SALT';
+const refreshTokenKey = 'REFRESH_TOKEN';
 
 class AuthenticationService {
   private httpInstance: AxiosInstance;
@@ -28,14 +27,14 @@ class AuthenticationService {
     try {
       const response =
         await this.httpInstance.post<LoginWithRefreshTokenResponse>(
-          "login/with-refresh",
+          'login/with-refresh',
           undefined,
           {
             headers: {
               Authorization:
-                "Basic " + btoa(`${loginData.email}:${loginData.password}`),
+                'Basic ' + btoa(`${loginData.email}:${loginData.password}`),
             },
-          }
+          },
         );
       this.saveToken(response.data);
       this.loadUser();
@@ -104,7 +103,7 @@ class AuthenticationService {
 
   private async checkTokenValidity() {
     try {
-      await httpClient.get("verify-access-token");
+      await httpClient.get('verify-access-token');
       return true;
     } catch (error) {
       if (error) {
@@ -120,7 +119,7 @@ class AuthenticationService {
   }
 
   private parseToken(token: string) {
-    let user = <User>jwt_decode(token);
+    let user = <SessionUser>jwt_decode(token);
     return user;
   }
 
@@ -143,17 +142,7 @@ class AuthenticationService {
   }
 
   async ensureToken(): Promise<boolean> {
-    var isLoggedInResult = await authenticationService.isLoggedIn();
-    if (isLoggedInResult.isLoggedIn) {
-      this.loadUser();
-      return true;
-    } else {
-      let result = await refreshTokenService.handleNoLoggedIn(isLoggedInResult);
-      if (result) {
-        this.loadUser();
-      }
-      return result;
-    }
+    return true;
   }
 }
 

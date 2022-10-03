@@ -5,7 +5,7 @@ import withAuth from "../../../utils/with-auth-hoc";
 function VaccinesMain() {
   return (
     <LayoutAuthenticated>
-      <h1>Instituciones</h1>
+      <h1>Vacunas</h1>
       <VaccineList />
     </LayoutAuthenticated>
   );

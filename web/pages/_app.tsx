@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
   return (
     <AlertProvider template={AlertTemplate} {...options}>
       <Head>
-        <title>PRACCISS</title>
+        <title>Pick a buddy</title>
       </Head>
       <Component {...pageProps} />
     </AlertProvider>

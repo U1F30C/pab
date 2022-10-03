@@ -22,7 +22,7 @@ class VaccineService {
     try {
       let params = apiQueryToOdataParams(query);
       if (query.queryString) {
-        params.$filter = `substringof('${query.queryString.toLowerCase()}', tolower(name))`;
+        params.$filter = `substringof('${query.queryString.toLowerCase()}', tolower(nombre_vacuna))`;
       }
       const response = await httpClient.get<PaginatedElements<Vaccine>>("vaccines", {
         params: params,

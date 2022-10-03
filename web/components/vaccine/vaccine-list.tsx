@@ -20,6 +20,10 @@ const vaccineTableColumns: ColumnConfiguration<Vaccine> = {
       property: "name",
     },
     {
+      displayName: "Vigencia",
+      property: "validity",
+    },
+    {
       displayName: "Acción",
       propertyExtractor: (item: Vaccine) => {
         return (
@@ -87,7 +91,7 @@ export default class VaccineList extends Component<any, VaccineListState> {
           className={"float-right"}
           onClick={() => Router.push("/app/vaccines/create")}
         >
-          Agregar institución
+          Agregar vacuna
         </Button>
       </AppTable>
     );

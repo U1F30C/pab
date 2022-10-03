@@ -10,7 +10,7 @@ class UserService {
     delete user.id;
     try {
       const createdUser = await httpClient.post<Partial<User>>("users", user);
-      await this.sendVerificationEmail(createdUser.data.id);
+      // await this.sendVerificationEmail(createdUser.data.id);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error.response.data;
@@ -23,7 +23,7 @@ class UserService {
     try {
       let params = apiQueryToOdataParams(query);
       if (query.queryString) {
-        params.$filter = `substringof('${query.queryString.toLowerCase()}', tolower(fullName)) or substringof('${query.queryString}', email)`;
+        params.$filter = `substringof('${query.queryString.toLowerCase()}', tolower(nombre)) or substringof('${query.queryString}', email)`;
       }
       const response = await httpClient.get<PaginatedElements<User>>("users", {
         params: params,
@@ -52,7 +52,7 @@ class UserService {
     } catch (error) {}
   }
 
-  sendVerificationEmail(userId: number) {
+  sendVerificationEmail(userId: string) {
     return httpClient.post("users/send-verification/" + userId);
   }
 

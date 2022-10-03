@@ -1,14 +1,14 @@
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { authenticationService } from "../../services/authentication-service";
-import Router from "next/router";
-import { Roles } from "../../constants/roles";
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { authenticationService } from '../../services/authentication-service';
+import Router from 'next/router';
+import { Roles } from '../../constants/roles';
 
 export default function AppNavbar() {
   const user = authenticationService.user;
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Navbar.Brand href="#home" className="mx-3">
-        PRACCISS
+        Pick a buddy
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -16,60 +16,52 @@ export default function AppNavbar() {
           <Nav.Link
             href="#"
             onClick={(event) => {
-              Router.push("/app/dashboard");
+              Router.push('/app/pets');
             }}
           >
-            Dashboard
+            Mascotas
           </Nav.Link>
           <Nav.Link
             href="#"
             onClick={(event) => {
-              Router.push("/app/users");
+              Router.push('/app/users');
             }}
           >
-            Usuarios
+            Empleados
           </Nav.Link>
-          {user.role == Roles.GlobalAdmin && (
-            <Nav.Link
-              href="#"
-              onClick={(event) => {
-                Router.push("/app/vaccines");
-              }}
-            >
-              Instituciones
-            </Nav.Link>
-          )}
+
           <Nav.Link
             href="#"
             onClick={(event) => {
-              Router.push("/app/clients");
+              Router.push('/app/vaccines');
             }}
           >
-            Pacientes
+            Vacunas
           </Nav.Link>
+
           <Nav.Link
             href="#"
             onClick={(event) => {
-              Router.push("/app/config/ranges");
+              Router.push('/app/clients');
             }}
           >
-            Rangos
+            Clientes
           </Nav.Link>
         </Nav>
-        <Nav>
-          <NavDropdown title={user.name} id="collasible-nav-dropdown">
+        {/* <Nav>
+          <NavDropdown title={user?.name} id="collasible-nav-dropdown">
             <NavDropdown.Item
               href="#"
               onClick={(event) => {
                 event.preventDefault();
                 authenticationService.logOff();
-                Router.push("/auth/login");
+                Router.push('/auth/login');
               }}
             >
               Salir
             </NavDropdown.Item>
           </NavDropdown>
-        </Nav>
+        </Nav> */}
       </Navbar.Collapse>
     </Navbar>
   );

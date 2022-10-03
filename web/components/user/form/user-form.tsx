@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { userSchema } from './user-validation';
 import { Roles, RolesDisplayNameMap } from '../../../constants/roles';
 import { Component } from 'react';
-import { User } from '../../../model/user';
+import { User, UserStates } from '../../../model/user';
 import { AlertManager, withAlert } from 'react-alert';
 import { displayError } from '../../../utils/error-displayer';
 import { displaySuccess } from '../../../utils/success-displayer';
@@ -19,10 +19,6 @@ interface UserFormProps {
 class UserForm extends Component<UserFormProps, {}> {
   constructor(props: UserFormProps) {
     super(props);
-    if (props.initialUser) {
-      props.initialUser.active = props.initialUser.active ? 'true' : 'false';
-      props;
-    }
     this.state = {};
   }
 
@@ -50,19 +46,19 @@ class UserForm extends Component<UserFormProps, {}> {
   render() {
     const adminData = authenticationService.user;
 
-    const globalAdminIsEditingGlobalAdmin =
-      this.props.initialUser?.role == Roles.GlobalAdmin;
     return (
       <Formik<User>
         initialValues={
           this.props.initialUser || {
-            id: 0,
+            id: '0',
             email: '',
-            fullName: '',
             name: '',
-            lastName: '',
-            role: Roles.Inspector,
-            active: 'true',
+            phoneNumber: '',
+            jobRole: '',
+            state: UserStates.Active,
+            address: '',
+            username: '',
+            password: '',
           }
         }
         onSubmit={this.handleSubmit.bind(this)}
@@ -106,45 +102,59 @@ class UserForm extends Component<UserFormProps, {}> {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="lastName">
-              <Form.Label>Apellido</Form.Label>
+            <Form.Group controlId="jobRole">
+              <Form.Label>Puesto</Form.Label>
               <Form.Control
-                type="lastName"
-                name="lastName"
-                value={values.lastName}
+                type="jobRole"
+                name="jobRole"
+                value={values.jobRole}
                 onChange={handleChange}
-                isInvalid={!!touched.lastName && !!errors.lastName}
+                isInvalid={!!touched.jobRole && !!errors.jobRole}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.lastName}
+                {errors.jobRole}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="role">
-              <Form.Label>Rol</Form.Label>
+            <Form.Group controlId="address">
+              <Form.Label>Dirección</Form.Label>
               <Form.Control
-                as="select"
-                type="role"
-                name="role"
-                value={values.role}
+                type="address"
+                name="address"
+                value={values.address}
                 onChange={handleChange}
-                isInvalid={!!touched.role && !!errors.role}
-                disabled={globalAdminIsEditingGlobalAdmin}
-              >
-                <option value={Roles.Inspector}>
-                  {RolesDisplayNameMap[Roles.Inspector]}
-                </option>
-                <option value={Roles.Admin}>
-                  {RolesDisplayNameMap[Roles.Admin]}
-                </option>
-                {globalAdminIsEditingGlobalAdmin && (
-                  <option value={Roles.GlobalAdmin}>
-                    {RolesDisplayNameMap[Roles.GlobalAdmin]}
-                  </option>
-                )}
-              </Form.Control>
+                isInvalid={!!touched.address && !!errors.address}
+              />
               <Form.Control.Feedback type="invalid">
-                {errors.role}
+                {errors.address}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId="phoneNumber">
+              <Form.Label>Teléfono</Form.Label>
+              <Form.Control
+                type="phoneNumber"
+                name="phoneNumber"
+                value={values.phoneNumber}
+                onChange={handleChange}
+                isInvalid={!!touched.phoneNumber && !!errors.phoneNumber}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.phoneNumber}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId="username">
+              <Form.Label>Nombre de usuario</Form.Label>
+              <Form.Control
+                type="username"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                isInvalid={!!touched.username && !!errors.username}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.username}
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -155,16 +165,16 @@ class UserForm extends Component<UserFormProps, {}> {
               <Form.Check
                 type="radio"
                 label="Si"
-                value={'true'}
-                checked={values.active === 'true'}
+                value={UserStates.Active}
+                checked={values.state === UserStates.Active}
                 onChange={handleChange}
                 name="active"
               />
               <Form.Check
                 type="radio"
-                value={'false'}
+                value={UserStates.Inactive}
                 label="No"
-                checked={values.active === 'false'}
+                checked={values.state === UserStates.Inactive}
                 onChange={handleChange}
                 name="active"
               />

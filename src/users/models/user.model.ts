@@ -16,13 +16,6 @@ export class UserRequestBody {
   @IsOptional({
     groups: ['update'],
   })
-  id: string;
-  @IsString({
-    always: true,
-  })
-  @IsOptional({
-    groups: ['update'],
-  })
   name: string;
   @IsString({
     always: true,
@@ -65,7 +58,7 @@ export class UserRequestBody {
   @IsOptional({
     groups: ['update'],
   })
-  userName: string;
+  username: string;
   @IsString({
     always: true,
   })
@@ -82,7 +75,7 @@ export interface IUser {
   email: string;
   phoneNumber: string;
   state: string;
-  userName: string;
+  username: string;
   password: string;
 }
 
@@ -112,7 +105,7 @@ export class User extends Model<IUser, Omit<IUser, 'id'>> implements IUser {
   @Column({ field: 'estado' })
   state: string;
   @Column({ field: 'usuario' })
-  userName: string;
+  username: string;
   @Column({ field: 'contrasena' })
   password: string;
   @BeforeSave

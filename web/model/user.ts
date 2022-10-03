@@ -1,11 +1,17 @@
-import { Roles } from "../constants/roles";
+import { Roles } from '../constants/roles';
 
+export enum UserStates {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
 export interface User {
-  id: number;
+  id: string;
   name: string;
-  lastName: string;
-  fullName: string;
+  jobRole: string;
+  address: string;
   email: string;
-  role: Roles;
-  active: boolean | string;
+  phoneNumber: string;
+  state: UserStates;
+  username: string;
+  password: string;
 }

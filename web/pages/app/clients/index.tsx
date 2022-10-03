@@ -5,7 +5,7 @@ import withAuth from "../../../utils/with-auth-hoc";
 function ClientsMain() {
   return (
     <LayoutAuthenticated>
-      <h1>Pacientes</h1>
+      <h1>Client</h1>
       <ClientList />
     </LayoutAuthenticated>
   );

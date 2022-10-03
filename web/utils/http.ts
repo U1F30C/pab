@@ -1,6 +1,5 @@
 import axios from "axios";
 import { authenticationService } from "../services/authentication-service";
-import { refreshTokenService } from "../services/refresh-token-service";
 import { storageManager } from "../services/storer";
 
 function createInstanceWithAuthInterceptor(baseURL: string) {
@@ -30,8 +29,4 @@ export const httpClient = createInstanceWithAuthInterceptor(
 );
 export const httpClientNoAuth = createAxiosInstance(
   process.env.NEXT_PUBLIC_API_ORIGIN
-);
-
-export const serverSideHttpClient = createAxiosInstance(
-  process.env.NEXT_PRIVATE_API_ORIGIN
 );

@@ -40,6 +40,7 @@ class VaccineForm extends Component<VaccineFormProps> {
           this.props.initialVaccine || {
             id: "0",
             name: "",
+            validity: '',
           }
         }
         onSubmit={this.handleSubmit.bind(this)}
@@ -66,6 +67,19 @@ class VaccineForm extends Component<VaccineFormProps> {
               />
               <Form.Control.Feedback type="invalid">
                 {errors.name}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group controlId="validity">
+              <Form.Label>Vigencia</Form.Label>
+              <Form.Control
+                type="text"
+                name="validity"
+                value={values.validity}
+                onChange={handleChange}
+                isInvalid={!!touched.validity && !!errors.validity}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.validity}
               </Form.Control.Feedback>
             </Form.Group>
             <Button disabled={isSubmitting} variant="primary" type="submit">

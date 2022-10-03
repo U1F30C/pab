@@ -6,7 +6,6 @@ import { AlertManager, withAlert } from "react-alert";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { LoginModel } from "../../model/login-model";
 import { authenticationService } from "../../services/authentication-service";
-import { refreshTokenService } from "../../services/refresh-token-service";
 import { displayError } from "../../utils/error-displayer";
 import { loginSchema } from "./login-validation";
 
@@ -26,6 +25,8 @@ class LoginIternal extends Component<LoginFormComponentProps, LoginState> {
   }
 
   async componentDidMount() {
+    
+    Router.push("/app/pets");
     const isAuthenticated = await authenticationService.ensureToken();
     if (isAuthenticated) {
       Router.push("/app/dashboard");

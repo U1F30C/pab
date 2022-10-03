@@ -1,11 +1,11 @@
-import Router from "next/router";
-import { Component } from "react";
-import { Roles } from "../../../constants/roles";
-import { vaccineService } from "../../../services/vaccine-service";
-import VaccineForm from "./vaccine-form";
+import Router from 'next/router';
+import { Component } from 'react';
+import { Roles } from '../../../constants/roles';
+import { vaccineService } from '../../../services/vaccine-service';
+import VaccineForm from './vaccine-form';
 export class VaccineCreator extends Component {
   private goToList() {
-    Router.push("/app/vaccines");
+    Router.push('/app/vaccines');
   }
 
   private async handleSubmit(vaccine) {
@@ -20,7 +20,8 @@ export class VaccineCreator extends Component {
       <VaccineForm
         initialVaccine={{
           id: '0',
-          name: "",
+          name: '',
+          validity: '',
         }}
         submit={this.handleSubmit.bind(this)}
         cancel={this.handleCancel.bind(this)}

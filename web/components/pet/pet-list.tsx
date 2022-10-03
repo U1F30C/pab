@@ -2,10 +2,12 @@ import { debounce } from 'lodash';
 import Router from 'next/router';
 import { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 import { Pet } from '../../model/pet';
 import { petService } from '../../services/pet-service';
 import { ApiQuery } from '../../utils/querying/api-query';
-import AppTable, { ColumnConfiguration } from '../shared/table/app-table';
+import AppGrid from '../shared/grid/app-grid';
+import { ColumnConfiguration } from '../shared/table/app-table';
 
 interface PetListState {
   query: ApiQuery;
@@ -92,14 +94,28 @@ export default class PetList extends Component<any, PetListState> {
   render() {
     return (
       <>
-        <AppTable
-          columnConfiguration={petTableColumns}
+        <AppGrid
+          displayer={(item) => {
+            return (
+              <>
+                <Card style={{ width: '13rem' }}>
+                  <Card.Img variant="top" src={item.image} />
+                  <Card.Body>
+                    <Card.Title>{item.name}</Card.Title>
+                    <Card.Text>Id: {item.id}</Card.Text>
+                    <Card.Text>{item.description}</Card.Text>
+                    <Button variant="primary">Adóptame!</Button>
+                  </Card.Body>
+                </Card>
+              </>
+            );
+          }}
           data={this.state.pets}
           query={this.state.query}
           onQueryChange={this.handleQueryChange}
           onRowClick={this.onRowClick}
           count={this.state.totalCount}
-        ></AppTable>
+        ></AppGrid>
       </>
     );
   }

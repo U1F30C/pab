@@ -5,7 +5,7 @@ import withAuth from "../../../utils/with-auth-hoc";
 function UsersMain() {
   return (
     <LayoutAuthenticated>
-      <h1>Usuarios</h1>
+      <h1>Empleados</h1>
       <UserList />
     </LayoutAuthenticated>
   );

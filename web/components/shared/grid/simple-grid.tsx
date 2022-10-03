@@ -9,7 +9,7 @@ export interface SimpleGridProps<T>
 export function SimpleGrid<T>(props: SimpleGridProps<T>) {
   return (
     <Row>
-      {props.data.map((item) => {
+      {props.data?.map((item) => {
         return (
           <Col md={3} lg={3} xl={3}>
             <div onClick={() => props.onRowClick(item)}>

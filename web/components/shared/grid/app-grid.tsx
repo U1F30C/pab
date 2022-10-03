@@ -1,39 +1,27 @@
-import { debounce } from "lodash";
-import { Component } from "react";
-import { FormControl, Row, Col } from "react-bootstrap";
-import { ApiQuery } from "../../../utils/querying/api-query";
-import AppPaginator from "./app-paginator";
-import { SimpleTable, SimpleTableProps } from "./simple-table";
+import { debounce } from 'lodash';
+import { Component } from 'react';
+import { Col, FormControl, Row } from 'react-bootstrap';
+import { ApiQuery } from '../../../utils/querying/api-query';
+import AppPaginator from '../table/app-paginator';
+import { AppTableState } from '../table/app-table';
+import { SimpleGrid, SimpleGridProps } from './simple-grid';
 
-export interface AppTableColumn<T = any> {
-  displayName: string;
-  property?: string;
-  propertyExtractor?: (item: T) => any;
-}
-
-export interface ColumnConfiguration<T> {
-  columns: AppTableColumn<T>[];
-  keySelector: (item: T) => string;
-  classSelector: (item: T) => string;
-}
-export interface AppTableProps<T> extends SimpleTableProps<T> {
+export interface AppGridProps<T> extends SimpleGridProps<T> {
   query: ApiQuery;
   count: number;
   onQueryChange: (query: ApiQuery) => void;
 }
 
-export interface AppTableState {
-  queryString: string;
-}
+interface AppGridState extends AppTableState {}
 
 export const PAGE_SIZE = 10;
 export const FIRST_PAGE = 0;
 
-export default class AppTable<T> extends Component<
-  AppTableProps<T>,
-  AppTableState
+export default class AppGrid<T> extends Component<
+  AppGridProps<T>,
+  AppGridState
 > {
-  constructor(props: AppTableProps<T>) {
+  constructor(props: AppGridProps<T>) {
     super(props);
     this.state = {
       queryString: props.query.queryString,
@@ -58,10 +46,10 @@ export default class AppTable<T> extends Component<
         <Row className="d-flex justify-content-between">
           <Col md={6} sm={6}>
             <FormControl
-              className={"float-left form-control w-50"}
+              className={'float-left form-control w-50'}
               type="text"
               name="searchQuery"
-              value={this.state.queryString || ""}
+              value={this.state.queryString || ''}
               placeholder="Buscar"
               onChange={(event) => {
                 const newText = event.target.value;
@@ -81,8 +69,8 @@ export default class AppTable<T> extends Component<
         </Row>
         <div className="clearfix"></div>
         <div className="mt-3">
-          <SimpleTable
-            columnConfiguration={this.props.columnConfiguration}
+          <SimpleGrid
+            displayer={this.props.displayer}
             data={this.props.data}
             onRowClick={this.props.onRowClick}
           />

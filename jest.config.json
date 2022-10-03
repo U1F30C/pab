@@ -1,0 +1,10 @@
+{
+  "moduleFileExtensions": ["js", "json", "jsx", "ts", "tsx", "node"],
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/src/$1"
+  },
+  "testEnvironment": "node",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "pracciss-web",
+  "version": "0.10.1",
+  "private": true,
+  "contributors": [
+    {
+      "name": "Eric L. Solís",
+      "email": "elopez@getinsoft.com"
+    },
+    {
+      "name": "Angel Marcelino Gonzalez Mayoral",
+      "email": "amgonzalez@getinsoft.com"
+    }
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "pretty": "npx prettier --write \"./**/*.{tsx, ts}\""
+  },
+  "dependencies": {
+    "@types/dateformat": "^3.0.1",
+    "@types/react-alert": "^5.2.0",
+    "@types/react-bootstrap": "^0.32.25",
+    "axios": "^0.21.1",
+    "chart.js": "2.9.3",
+    "d3": "^6.7.0",
+    "d3-scale": "^3.3.0",
+    "date-fns": "^2.11.1",
+    "dateformat": "^4.5.1",
+    "formik": "^2.2.6",
+    "gray-matter": "^4.0.2",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "mdb-react-ui-kit": "^1.4.0",
+    "next": "^10.0.0",
+    "prop-types": "^15.7.2",
+    "react": "17.0.1",
+    "react-alert": "^7.0.2",
+    "react-alert-template-basic": "^1.0.0",
+    "react-bootstrap": "^1.5.2",
+    "react-chartjs-2": "^2.11.1",
+    "react-datepicker": "^3.8.0",
+    "react-dom": "^17.0.2",
+    "react-modal": "^3.13.1",
+    "react-paginate": "^7.1.2",
+    "react-simple-maps": "^2.3.0",
+    "react-tooltip": "^4.2.17",
+    "remark": "^12.0.0",
+    "remark-html": "^12.0.0",
+    "sass": "^1.53.0",
+    "url-join": "^4.0.1",
+    "venn.js": "^0.2.20",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@types/chartjs": "^0.0.31",
+    "@types/d3": "^6.3.0",
+    "@types/node": "^14.14.35",
+    "@types/react": "^17.0.3",
+    "@types/react-alert": "^5.2.0",
+    "@types/react-bootstrap": "^0.32.25",
+    "@types/react-chartjs-2": "^2.5.7",
+    "@types/react-datepicker": "^3.1.8",
+    "@types/react-simple-maps": "^1.0.3",
+    "typescript": "^4.2.3"
+  }
+}

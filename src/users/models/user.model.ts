@@ -7,7 +7,6 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Roles } from '../../constants/roles';
 import { appConfig } from '../../utils/startup-config-service';
 
 export class UserRequestBody {

@@ -20,8 +20,8 @@ const clientTableColumns: ColumnConfiguration<Client> = {
       property: "name",
     },
     {
-      displayName: "Apellido",
-      property: "lastName",
+      displayName: "Teléfono",
+      property: "phoneNumber",
     },
     {
       displayName: "Correo",

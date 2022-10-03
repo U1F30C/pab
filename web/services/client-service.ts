@@ -1,8 +1,23 @@
+import axios from 'axios';
 import { Client } from '../model/client';
 import { httpClient } from '../utils/http';
 import { ApiQuery } from '../utils/querying/api-query';
 
 export class ClientService {
+  async create(client: Client) {
+    delete client.id;
+    try {
+      const createdClient = await httpClient.post<Partial<Client>>(
+        'clients',
+        client,
+      );
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error.response.data;
+      }
+      throw error;
+    }
+  }
   async findById(clientId: number): Promise<Client> {
     try {
       const response = await httpClient.get<Client>(`clients/${clientId}`, {});

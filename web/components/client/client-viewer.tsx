@@ -1,19 +1,15 @@
-import React, { Component } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import ReactModal from "react-modal";
-import {
-  Client,
-  SexDisplayableName
-} from "../../model/client";
-import { clientService } from "../../services/client-service";
-import { AppTableColumn } from "../shared/table/app-table";
-import { DetailDisplayer } from "../shared/table/detail-viewer";
+import { Component } from 'react';
+import { Button } from 'react-bootstrap';
+import { Client } from '../../model/client';
+import { clientService } from '../../services/client-service';
+import { AppTableColumn } from '../shared/table/app-table';
+import { DetailDisplayer } from '../shared/table/detail-viewer';
 
 const customStyles = {
-  height: "fit-content",
-  width: "50%",
-  minWidth: "320px",
-  margin: "0 auto",
+  height: 'fit-content',
+  width: '50%',
+  minWidth: '320px',
+  margin: '0 auto',
 };
 interface ClientViewerProps {
   clientId: number;
@@ -25,15 +21,13 @@ interface ClientViewerState {
 }
 
 const properties: AppTableColumn<Client>[] = [
-  { displayName: "Correo", property: "email" },
-  { displayName: "Teléfono", property: "phoneNumber" },
+  { displayName: 'Correo', property: 'email' },
+  { displayName: 'Teléfono', property: 'phoneNumber' },
   {
-    displayName: "Sexo",
-    propertyExtractor: (item) => {
-      return SexDisplayableName[item.sex];
-    },
+    displayName: 'Descripción',
+    property: 'description',
   },
-  { displayName: "Fecha de nacimiento (AAAA-MM-DD)", property: "birthdate" },
+  { displayName: 'Teléfono', property: 'phoneNumber' },
 ];
 export default class ClientViewer extends Component<
   ClientViewerProps,
@@ -54,7 +48,7 @@ export default class ClientViewer extends Component<
 
   async componentDidUpdate(
     prevProps: ClientViewerProps,
-    _prevState: ClientViewerState
+    _prevState: ClientViewerState,
   ) {
     if (this.props.clientId && this.props.clientId !== prevProps.clientId) {
       await this.fetchData(this.props.clientId);
@@ -74,9 +68,7 @@ export default class ClientViewer extends Component<
     }
     return (
       <>
-        <h1>
-          {this.state.client.name} {this.state.client.lastName}
-        </h1>
+        <h1>{this.state.client.name}</h1>
         <DetailDisplayer item={this.state.client} properties={properties} />
 
         <Button

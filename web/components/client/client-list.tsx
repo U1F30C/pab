@@ -96,7 +96,13 @@ export default class ClientList extends Component<any, ClientListState> {
           onQueryChange={this.handleQueryChange}
           onRowClick={this.onRowClick}
           count={this.state.totalCount}
-        ></AppTable>
+        >
+        <Button
+          className={'float-right'}
+          onClick={() => Router.push('/app/clients/create')}
+        >
+          Registrar cliente
+        </Button></AppTable>
       </>
     );
   }

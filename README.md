@@ -2,7 +2,7 @@
 Probly unfinished, don't remember
 And had some weird data schema requirements but it's cute I think
 
-![screenshot](Screenshot-2022-10-03 17-50-48.png)
+![screenshot](screenshot.png)
 
 Something something made with NestJS 🏋️😺
 ------------
